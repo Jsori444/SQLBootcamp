@@ -28,6 +28,7 @@ create table DB1_Taverns(Name varchar(250),
 );
 
 create table DB1_Location(
+	locationId int primary key,
 	Name Varchar(250)
 );
 
@@ -79,7 +80,7 @@ create table DB1_Services(
 	statusId int
 );
 
-create table DB1_ServicesStatus(
+create table DB1_ServiceStatus(
 	statusID int,
 	status varchar(100)
 );
@@ -97,13 +98,13 @@ values
 ('The Stinky Winky', 2, 4),
 ('Pickle Pickle', 3, 4);
 
-insert into DB1_Location(Name) 
+insert into DB1_Location(locationId, Name) 
 values
-('123 Fake St.'),
-('11 Kunkle Way'),
-('007 Secret Dr.'),
-('Under a bridge'),
-('29  Arlington Ave.');
+(1,'123 Fake St.'),
+(2,'11 Kunkle Way'),
+(3,'007 Secret Dr.'),
+(4,'Under a bridge'),
+(5,'29  Arlington Ave.');
 
 insert into DB1_Roles(Id, Name,	Description)
 values

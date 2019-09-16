@@ -18,41 +18,46 @@ drop table if exists
 	DB1_ServiceStatus;
 
 create table DB1_Users(
+	userId int, -- PK, Identity
 	Name varchar(250), 
-	RoleId int
+	RoleId int -- foreign DB1_Roles.Id
 );
 
 create table DB1_Taverns(Name varchar(250),	
-	LocationId int, 
-	OwnerId int
+	TavernId int, -- PK
+	name varchar(200),
+	LocationId int, -- foreign key references DB1_location(locationId), -- taverns are located at
+	OwnerId int -- foreign DB1_Users.userID
 );
 
 create table DB1_Location(
-	locationId int primary key,
+	locationId int, -- PK
 	Name Varchar(250)
 );
 
 create table DB1_Roles(
-	Id int,
-	Name varchar(50),
-	Description varchar(max)
+	Id int, -- PK
+	Name varchar(50), 
+	Description varchar(max) 
 );
 
 create table DB1_BasementRats(
-	name varchar(100),
-	TavernId int
+	name varchar(100), -- Rats have names.. i assume
+	TavernId int -- foreign DB1_Taverns.TavernId 
 );
 
 create table DB1_Sales(
-	supplyId int,
-	tavernId int,
-	guestId int, 
+	saleId int, -- PK
+	supplyId int, -- foreign DB1_Supplies.supplyID
+	tavernId int, -- foreign DB1_taverns.tavernId
+	guestId int, -- foreign DB1_Guests.guestId
 	price float,
-	amount float
+	amount float,
+	date date
 );
 
 create table DB1_Supplies(
-	supplyID int,
+	supplyID int, -- PK
 	name varchar(100),
 	type varchar(100),
 	unitSize varchar(30),
@@ -60,29 +65,49 @@ create table DB1_Supplies(
 );
 
 create table DB1_TavernStock(
-	TavernId int,
-	SupplyId int,
+	TavernId int, -- foreign DB1_Taverns.tavernId
+	SupplyId int, -- foreign DB1_Supplies.supplyID
 	units float
 );
 create table DB1_SuppliesRcvd(
-	rcvdId int identity(1,1) primary key,
-	supplyId int,
-	tavernId int,
+	rcvdId int, -- identity(1,1) primary key,
+	supplyId int, -- foreign DB1_Supplies.supplyID
+	tavernId int, -- foreign DB1_Taverns.tavernId
 	cost float,
 	amount float,
 	date date
 );
 
 create table DB1_Services(
-	serviceID int,
+	serviceID int, -- PK
 	name varchar(100),
 	type varchar(50),
-	statusId int
+	statusId int -- foreign DB1_ServiceStatus.statusId
 );
 
 create table DB1_ServiceStatus(
-	statusID int,
+	statusID int, -- PK
 	status varchar(100)
+);
+
+create table DB1_Guests(
+	guestId int, --PK
+	name varchar(250),
+	notes varchar(max),
+	birthday date, 
+	cakeday date, 
+	statusID int -- foreign DB1_GuestStatus.statusID
+);
+
+create table DB1_GuestStatus(
+	statusId int, -- PK
+	status varchar(50)
+);
+
+create table DB1_Class(
+	guestId int, -- foreign DB1_guests.guestId
+	class varchar, -- PK
+	level int -- PK
 );
 
 -- INSERT SEED DATA --

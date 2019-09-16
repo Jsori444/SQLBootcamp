@@ -3,6 +3,8 @@ use JPeck_2019
 
 
 -- CREATE TABLES --
+-------------------
+
 drop table if exists 
 	DB1_Users, 
 	DB1_Taverns, 
@@ -42,7 +44,8 @@ create table DB1_Roles(
 );
 
 create table DB1_BasementRats(
-	name varchar(100), -- Rats have names.. i assume
+	ratId int, -- PK
+	name varchar(100), 
 	TavernId int -- foreign DB1_Taverns.TavernId 
 );
 
@@ -65,6 +68,7 @@ create table DB1_Supplies(
 );
 
 create table DB1_TavernStock(
+	stockId int, -- PK
 	TavernId int, -- foreign DB1_Taverns.tavernId
 	SupplyId int, -- foreign DB1_Supplies.supplyID
 	units float
@@ -110,6 +114,11 @@ create table DB1_Class(
 	level int -- PK
 );
 
+-- ALTER TABLES - ADD PKs AND FOREIGN KEYS --
+---------------------------------------------
+
+
+/*
 -- INSERT SEED DATA --
 ----------------------
 insert into DB1_Users(Name, RoleId)
@@ -200,3 +209,4 @@ values
 (4, 'Discontinued'),
 (5, 'Coming Soon')
 ;
+*/

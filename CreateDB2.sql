@@ -17,7 +17,13 @@ drop table if exists
 	DB1_Supplies, 
 	DB1_SuppliesRcvd, 
 	DB1_Services, 
-	DB1_ServiceStatus;
+	DB1_ServiceStatus,
+	DB1_Guests,
+	DB1_GuestStatus,
+	DB1_Class,
+	DB1_Rooms,
+	DB1_RoomStatus,
+	DB1_RoomStays;
 
 create table DB1_Users(
 	userId int, -- PK, Identity
@@ -114,27 +120,61 @@ create table DB1_Class(
 	level int -- PK
 );
 
+create table DB1_Rooms(
+	roomId int primary key identity(1,1),
+	name varchar(200),
+	roomNum tinyint,
+	statusId int, -- foreign
+	tavernId int -- foreign
+);
+
+create table RoomStatus(
+	statusId int primary key,
+	status varchar(200)
+);
+
+create table DB1_RoomStays(
+	stayId int primary key identity(1,1),
+	roomId int, -- foreign 
+	saleId int, -- foreign
+	guestId int, -- foreign
+	date date,
+	rate float
+);
+
 -- ALTER TABLES - ADD PKs AND FOREIGN KEYS --
 ---------------------------------------------
 
-
-
+/*
 ---- add primary keys ----
 alter table DB1_Users alter column userId int not null;
-alter table DB1_Users add constraint pk_userid primary key (userId);
+alter table DB1_Users add primary key (userId);
+alter table DB1_Taverns alter column TavernId int not null;
 alter table DB1_Taverns add primary key (TavernId);
+alter table DB1_Location alter column locationId int not null;
 alter table DB1_Location add primary key (locationId);
+alter table DB1_Roles alter column Id int not null;
 alter table DB1_Roles add primary key (Id);
+alter table DB1_BasementRats alter column ratId int not null;
 alter table DB1_BasementRats add primary key (ratId);
+alter table DB1_Sales alter column salesId int not null;
 alter table DB1_Sales add primary key (salesId);
+alter table DB1_Supplies alter column supplyId int not null;
 alter table DB1_Supplies add primary key (supplyId);
+alter table DB1_TavernStock alter column stockId int not null;
 alter table DB1_TavernStock add primary key (stockId);
+alter table DB1_SuppliesRcvd alter column rcvdId int not null;
 alter table DB1_SuppliesRcvd add primary key (rcvdId);
+alter table DB1_Services alter column sericeId int not null;
 alter table DB1_Services add primary key (sericeId);
+alter table DB1_ServiceStatus alter column statusId int not null;
 alter table DB1_ServiceStatus add primary key (statusId);
+alter table DB1_Guests alter column guestId int not null;
 alter table DB1_Guests add primary key (guestId);
+alter table DB1_GuestStatus alter column statusId int not null;
 alter table DB1_GuestStatus add primary key (statusId);
 -- alter table DB1_Class add constraint pk_classLevel primary key(class, level);
+*/
 
 ---- add foreign keys ----
 alter table DB1_Users add foreign key (roleId) references DB1_Roles(Id);

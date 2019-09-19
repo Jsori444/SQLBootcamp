@@ -1,3 +1,5 @@
+
+
 ---- add primary keys ----
 alter table DB1_Users add primary key (userId);
 alter table DB1_Taverns add primary key (TavernId);
@@ -12,7 +14,7 @@ alter table DB1_Services add primary key (sericeId);
 alter table DB1_ServiceStatus add primary key (statusId);
 alter table DB1_Guests add primary key (guestId);
 alter table DB1_GuestStatus add primary key (statusId);
-alter table DB1_Class add constraint pk_classLevel (class, level);
+-- alter table DB1_Class add constraint pk_classLevel (class, level);
 
 ---- add foreign keys ----
 alter table DB1_Users add foreign key (roleId) references DB1_Roles(Id);

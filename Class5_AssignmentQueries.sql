@@ -31,14 +31,18 @@ use JPeck_2019
 	select dbo.class5AssignmentFunc1(0) as 'Ranking'
 
 -- 5.	Write a function that returns a report of all open rooms (not used) on a particular day (input) and which tavern they belong to 
-
------||| NS: create function and replace dates with variable
- 	select r.roomNum as 'Room Number', 'Date' as 'Date', t.name as 'Tavern' from db2_rooms r
-	join DB2_RoomStatus rs on r.statusId = rs.statusid
-	join db2_roomstays ry on ry.roomId = r.roomId
-	join db2_taverns t on t.TavernId = r.tavernId
-	where rs.statusId = 1 and ry.date = '20190420'
+	select * from dbo.class5AssignmentFunc2('4-20-2019') -- succeeds
+	select * from dbo.class5AssignmentFunc2('4-16-2019') -- fails
 
 -- 6.	Modify the same function from 5 to instead return a report of prices in a range (min and max prices) - Return Rooms and their taverns based on price inputs
--- 7.	Write a command that uses the result from 6 to Create a Room in another tavern that undercuts (is less than) the cheapest room by a penny - thereby making the new room the cheapest one
+	select * from dbo.class5AssignmentFunc3(10,100) order by 'Room Rate'
 
+-- 7.	Write a command that uses the result from 6 to Create a Room in another tavern that undercuts (is less than) the cheapest room by a penny - thereby making the new room the cheapest one
+	-- Wasn't sure I understood this one
+	update db2_rooms
+	set price = dbo.class5AssignmentFunc4(10,100) 
+	where roomId = 7
+
+
+
+	

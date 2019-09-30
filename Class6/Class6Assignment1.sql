@@ -116,3 +116,13 @@ exec BookLowestRoom @d = '12-25-2018'--, @g = 1
 
 
 -- 7.	Write a trigger that watches for new bookings and adds a new sale for the guest for a service (for free if you can in your schema)
+-- Need to change my DB to make this work...
+drop trigger if exists InsertBookingTrigger
+go
+create trigger InsertBookingTrigger
+on dbo.db2_RoomStatus
+after insert
+as begin
+select * from db2_sales
+end
+go 

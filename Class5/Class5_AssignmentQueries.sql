@@ -31,7 +31,7 @@ use JPeck_2019
 	select dbo.class5AssignmentFunc1(0) as 'Ranking'
 
 -- 5.	Write a function that returns a report of all open rooms (not used) on a particular day (input) and which tavern they belong to 
-	select * from dbo.class5AssignmentFunc2('4-20-2019') -- succeeds
+	select * from dbo.getOpenRoomsByDay('4-20-2019') -- succeeds
 	select * from dbo.class5AssignmentFunc2('4-16-2019') -- fails
 
 -- 6.	Modify the same function from 5 to instead return a report of prices in a range (min and max prices) - Return Rooms and their taverns based on price inputs

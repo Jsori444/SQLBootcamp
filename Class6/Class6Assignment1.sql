@@ -94,5 +94,25 @@ go
 
 exec DeleteTavern @tavernId = 3
 
--- 6.	Write a stored procedure that uses the function from the last assignment that returns open rooms with their prices, and automatically book the lowest price room with a guest for one day
+-- 6.	Write a stored procedure that uses the function from the last assignment that returns open rooms with their prices, 
+	--  and automatically book the lowest price room with a guest for one day
+drop procedure if exists BookLowestRoom
+go
+create procedure BookLowestRoom
+@d date--, @g int
+as begin
+declare @r int
+declare @rt float
+select @r = roomId, @rt = min(rate) from DB2_RoomStays 
+where roomID in (
+select RoomId from dbo.getOpenRoomsByDay(@d))
+group by roomId
+insert into DB2_RoomStays(roomid,saleid,guestid,date,rate)
+values(@r,2,3,@d,@rt)
+end
+go
+
+exec BookLowestRoom @d = '12-25-2018'--, @g = 1
+
+
 -- 7.	Write a trigger that watches for new bookings and adds a new sale for the guest for a service (for free if you can in your schema)
